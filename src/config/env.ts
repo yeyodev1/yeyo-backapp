@@ -42,4 +42,12 @@ export const env = {
   CLOUDINARY_API_KEY: optional("CLOUDINARY_API_KEY", ""),
   CLOUDINARY_API_SECRET: optional("CLOUDINARY_API_SECRET", ""),
   CRON_SECRET: optional("CRON_SECRET", ""),
+  TELEGRAM_BOT_TOKEN: optional("TELEGRAM_BOT_TOKEN", ""),
+  TELEGRAM_CHAT_ID: optional("TELEGRAM_CHAT_ID", ""),
+  CONTACT_WHATSAPP: optional("CONTACT_WHATSAPP", "593963681303"),
+  CONTACT_INSTAGRAM: optional("CONTACT_INSTAGRAM", "yeyo.dev"),
+  CONTACT_EMAIL: optional("CONTACT_EMAIL", "diegorele13@gmail.com"),
+  // URL pública de esta API, para el botón "marcar como contactado" de Telegram.
+  API_PUBLIC_URL: optional("API_PUBLIC_URL", ""),
+  FOLLOW_UP_AFTER_HOURS: Number(optional("FOLLOW_UP_AFTER_HOURS", "48")),
 } as const;
