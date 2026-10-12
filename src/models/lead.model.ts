@@ -1,7 +1,9 @@
 import { Schema, model, InferSchemaType } from "mongoose";
 
 export const NEEDS = ["app", "automatizacion", "web", "tienda", "dashboard", "ia", "integracion", "otro"] as const;
-export const BUDGETS = ["menos-1k", "1k-3k", "3k-8k", "8k-mas", "no-se"] as const;
+// Proyectos desde $800 USD: no hay opción por debajo de eso.
+export const MIN_BUDGET_USD = 800;
+export const BUDGETS = ["800-1.5k", "1.5k-3k", "3k-8k", "8k-mas"] as const;
 export const TIMELINES = ["urgente", "1-mes", "1-3-meses", "explorando"] as const;
 export const LEAD_STATUS = ["nuevo", "contactado", "cerrado", "descartado"] as const;
 
