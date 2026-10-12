@@ -4,7 +4,7 @@ import { CustomError } from "../errors/customError.error";
 import { label, needsList } from "../constants/lead.labels";
 import { BUDGETS, LEAD_STATUS, LeadModel, NEEDS, TIMELINES, type Lead } from "../models/lead.model";
 import { sendEmail } from "./email.service";
-import { confirmationEmail, followUpEmail } from "./leadEmails.service";
+import { confirmationEmail, followUpEmail, ownerEmail } from "./leadEmails.service";
 import { escapeHtml, notifyTelegram, type InlineButton } from "./telegram.service";
 
 export interface LeadInput {
@@ -19,6 +19,7 @@ export interface LeadInput {
   timeline?: unknown;
   source?: unknown;
   lang?: unknown;
+  acceptsMinimum?: unknown;
   /** Honeypot: los humanos no lo ven, los bots lo llenan. */
   website?: unknown;
 }
@@ -55,7 +56,10 @@ function sanitize(input: LeadInput) {
   const needs = Array.isArray(input.needs)
     ? [...new Set(input.needs.filter((n): n is (typeof NEEDS)[number] => NEEDS.includes(n)))]
     : [];
+  // Calificación: solo pasan presupuestos desde $800 y quien aceptó ese mínimo.
   const budget = BUDGETS.includes(input.budget as never) ? (input.budget as string) : "";
+  if (!budget) throw new CustomError("Elige un presupuesto. Los proyectos empiezan desde $800 USD.", 400);
+  if (input.acceptsMinimum !== true) throw new CustomError("Confirma que tu presupuesto es de $800 USD o más.", 400);
   const timeline = TIMELINES.includes(input.timeline as never) ? (input.timeline as string) : "";
 
   return {
@@ -88,7 +92,7 @@ const waLink = (phone: string, text: string) => {
 
 export function telegramMessage(lead: Lead, emailSent: boolean) {
   const e = escapeHtml;
-  const hot = lead.timeline === "urgente" || lead.budget === "8k-mas";
+  const hot = lead.timeline === "urgente" || lead.budget === "8k-mas" || lead.budget === "3k-8k";
   const when = new Date(lead.createdAt).toLocaleString("es-EC", { timeZone: "America/Guayaquil", dateStyle: "medium", timeStyle: "short" });
   const needs = needsList(lead, "es");
 
@@ -147,7 +151,12 @@ export async function createLead(input: LeadInput, ip: string) {
   const lead = (await LeadModel.create({ ...data, ip })).toObject() as unknown as Lead;
 
   const confirm = confirmationEmail(lead);
-  const emailSent = await sendEmail(lead.email, confirm.subject, confirm.html, { replyTo: env.CONTACT_EMAIL });
+  const owner = ownerEmail(lead);
+  const [emailSent] = await Promise.all([
+    sendEmail(lead.email, confirm.subject, confirm.html, { replyTo: env.CONTACT_EMAIL }),
+    // Copia completa para Yeyo; "Responder" le escribe directo al cliente.
+    sendEmail(env.CONTACT_EMAIL, owner.subject, owner.html, { replyTo: lead.email }),
+  ]);
   const { html, buttons } = telegramMessage(lead, emailSent);
   const notified = await notifyTelegram(html, buttons);
 
