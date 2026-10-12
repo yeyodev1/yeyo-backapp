@@ -16,6 +16,7 @@ export const LABELS: Record<Lang, Record<string, Record<string, string>>> = {
       otro: "Otra cosa",
     },
     budget: {
+      "500-1.5k": "$500 – $1.500",
       "800-1.5k": "$800 – $1.500",
       "1.5k-3k": "$1.500 – $3.000",
       "3k-8k": "$3.000 – $8.000",
@@ -40,6 +41,7 @@ export const LABELS: Record<Lang, Record<string, Record<string, string>>> = {
       otro: "Something else",
     },
     budget: {
+      "500-1.5k": "$500 – $1,500",
       "800-1.5k": "$800 – $1,500",
       "1.5k-3k": "$1,500 – $3,000",
       "3k-8k": "$3,000 – $8,000",
