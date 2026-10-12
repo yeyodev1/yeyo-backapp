@@ -27,7 +27,7 @@ const COPY = {
     ],
     minTitle: "Para que estemos alineados",
     minText:
-      "Trabajo con proyectos <b>desde $800 USD</b>. Así puedo dedicarle el tiempo que tu negocio merece y entregarte algo que de verdad funcione.",
+      "Los proyectos empiezan <b>desde $500 USD</b>, que es el precio de algo muy básico. El valor final depende de lo que necesites; te lo confirmo con una propuesta clara antes de empezar.",
     hurry: "¿Te urge y quieres avanzar ya?",
     hurryText: "Escríbeme directo y lo vemos hoy mismo.",
     signature: "Diego Reyes (Yeyo)",
@@ -61,7 +61,7 @@ const COPY = {
     ],
     minTitle: "So we're aligned",
     minText:
-      "I take on projects <b>starting at $800 USD</b>. That lets me give your business the time it deserves and deliver something that truly works.",
+      "Projects start <b>at $500 USD</b>, which covers something very basic. The final price depends on what you need; I confirm it with a clear proposal before we start.",
     hurry: "In a hurry and ready to move?",
     hurryText: "Message me directly and we'll look at it today.",
     signature: "Diego Reyes (Yeyo)",
@@ -217,7 +217,7 @@ export function ownerEmail(lead: Lead) {
   const budget = lead.budget ? label("es", "budget", lead.budget as string) : "—";
 
   const body = `
-    <p style="margin:0 0 18px;font-size:16px;line-height:1.6">${hot ? "🔥 <b>Prioridad alta.</b> " : ""}Llegó una solicitud nueva desde <b>${e(SOURCE_NAMES[lead.source as string] || (lead.source as string))}</b>. El cliente confirmó un presupuesto de $800 USD o más y ya recibió su correo de confirmación con tu WhatsApp e Instagram.</p>
+    <p style="margin:0 0 18px;font-size:16px;line-height:1.6">${hot ? "🔥 <b>Prioridad alta.</b> " : ""}Llegó una solicitud nueva desde <b>${e(SOURCE_NAMES[lead.source as string] || (lead.source as string))}</b>. El cliente confirmó tener al menos $500 USD para invertir y ya recibió su correo de confirmación con tu WhatsApp e Instagram.</p>
     ${rows([
       ["Nombre", `<b>${e(lead.name)}</b>`],
       ["Correo", `<a href="mailto:${e(lead.email)}" style="color:${INK}">${e(lead.email)}</a>`],
