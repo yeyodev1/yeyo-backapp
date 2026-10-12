@@ -16,11 +16,10 @@ export const LABELS: Record<Lang, Record<string, Record<string, string>>> = {
       otro: "Otra cosa",
     },
     budget: {
-      "menos-1k": "Menos de $1.000",
-      "1k-3k": "$1.000 – $3.000",
+      "800-1.5k": "$800 – $1.500",
+      "1.5k-3k": "$1.500 – $3.000",
       "3k-8k": "$3.000 – $8.000",
       "8k-mas": "Más de $8.000",
-      "no-se": "Aún no lo sé",
     },
     timeline: {
       urgente: "Urgente (esta semana)",
@@ -41,11 +40,10 @@ export const LABELS: Record<Lang, Record<string, Record<string, string>>> = {
       otro: "Something else",
     },
     budget: {
-      "menos-1k": "Under $1,000",
-      "1k-3k": "$1,000 – $3,000",
+      "800-1.5k": "$800 – $1,500",
+      "1.5k-3k": "$1,500 – $3,000",
       "3k-8k": "$3,000 – $8,000",
       "8k-mas": "$8,000+",
-      "no-se": "Not sure yet",
     },
     timeline: {
       urgente: "Urgent (this week)",
