@@ -65,7 +65,7 @@ Protecciones: honeypot (`website`), límite de 5 envíos por IP cada 10 min y va
 ### Ponerlo en producción
 
 1. **Telegram:** crea un bot con [@BotFather](https://t.me/BotFather) → `TELEGRAM_BOT_TOKEN`. Escríbele cualquier cosa al bot y abre `https://api.telegram.org/bot<TOKEN>/getUpdates`; el `chat.id` es tu `TELEGRAM_CHAT_ID`.
-2. **Resend:** verifica el dominio `yeyo.dev` en Resend → `RESEND_API_KEY` y `RESEND_FROM_EMAIL="Yeyo <hola@yeyo.dev>"`. Sin dominio verificado Resend solo envía a tu propio correo.
+2. **Resend:** verifica el dominio `yeyo.dev` en Resend → `RESEND_API_KEY` y `RESEND_FROM_EMAIL="Yeyo <me@yeyo.dev>"`. Sin dominio verificado Resend solo envía a tu propio correo.
 3. **Mongo Atlas:** cluster gratis → `DB_URI`.
 4. **Vercel:** `vercel --prod` y carga todas las variables de `.env.example`. Pon `API_PUBLIC_URL` con la URL final (activa el botón "✅ Marcar como contactado") y un `CRON_SECRET` largo; el cron de `vercel.json` corre todos los días a las 10:00 (Ecuador).
 5. **Frontend (Netlify):** variable `VITE_API_URL=<url de Vercel>` y redeploy.
