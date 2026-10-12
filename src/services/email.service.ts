@@ -13,7 +13,12 @@ function getClient(): Resend | null {
  * Envía un correo. Nunca lanza: el fallo de un correo no debe romper el
  * flujo que lo disparó (una compra, un registro). Devuelve si Resend lo aceptó.
  */
-export async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
+export async function sendEmail(
+  to: string,
+  subject: string,
+  html: string,
+  options: { replyTo?: string } = {},
+): Promise<boolean> {
   const client = getClient();
   if (!client) {
     console.warn(`[email] RESEND_API_KEY no definida — no se envió "${subject}" a ${to}`);
@@ -21,7 +26,13 @@ export async function sendEmail(to: string, subject: string, html: string): Prom
   }
 
   try {
-    const { error } = await client.emails.send({ from: env.RESEND_FROM_EMAIL, to, subject, html });
+    const { error } = await client.emails.send({
+      from: env.RESEND_FROM_EMAIL,
+      to,
+      subject,
+      html,
+      ...(options.replyTo ? { replyTo: options.replyTo } : {}),
+    });
     if (error) {
       console.error("[email] Resend rechazó el envío:", error);
       return false;
