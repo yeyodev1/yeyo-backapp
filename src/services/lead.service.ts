@@ -56,10 +56,10 @@ function sanitize(input: LeadInput) {
   const needs = Array.isArray(input.needs)
     ? [...new Set(input.needs.filter((n): n is (typeof NEEDS)[number] => NEEDS.includes(n)))]
     : [];
-  // Calificación: solo pasan presupuestos desde $800 y quien aceptó ese mínimo.
+  // Calificación: solo pasan presupuestos desde $500 y quien aceptó ese mínimo.
   const budget = BUDGETS.includes(input.budget as never) ? (input.budget as string) : "";
-  if (!budget) throw new CustomError("Elige un presupuesto. Los proyectos empiezan desde $800 USD.", 400);
-  if (input.acceptsMinimum !== true) throw new CustomError("Confirma que tu presupuesto es de $800 USD o más.", 400);
+  if (!budget) throw new CustomError("Elige un presupuesto. Los proyectos empiezan desde $500 USD.", 400);
+  if (input.acceptsMinimum !== true) throw new CustomError("Confirma que tienes al menos $500 USD para invertir.", 400);
   const timeline = TIMELINES.includes(input.timeline as never) ? (input.timeline as string) : "";
 
   return {
