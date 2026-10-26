@@ -50,4 +50,6 @@ export const env = {
   // URL pública de esta API, para el botón "marcar como contactado" de Telegram.
   API_PUBLIC_URL: optional("API_PUBLIC_URL", ""),
   FOLLOW_UP_AFTER_HOURS: Number(optional("FOLLOW_UP_AFTER_HOURS", "48")),
+  // Webhook del workflow de leads de la landing de Bakano en GHL. Sin él no se manda nada.
+  GHL_WEBHOOK_URL: optional("GHL_WEBHOOK_URL", ""),
 } as const;

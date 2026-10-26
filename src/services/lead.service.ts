@@ -4,6 +4,7 @@ import { CustomError } from "../errors/customError.error";
 import { label, needsList } from "../constants/lead.labels";
 import { BUDGETS, LEAD_STATUS, LeadModel, NEEDS, TIMELINES, type Lead } from "../models/lead.model";
 import { sendEmail } from "./email.service";
+import { sendLeadToGhl } from "./ghl.service";
 import { confirmationEmail, followUpEmail, ownerEmail } from "./leadEmails.service";
 import { escapeHtml, notifyTelegram, type InlineButton } from "./telegram.service";
 
@@ -156,6 +157,7 @@ export async function createLead(input: LeadInput, ip: string) {
     sendEmail(lead.email, confirm.subject, confirm.html, { replyTo: env.CONTACT_EMAIL }),
     // Copia completa para Yeyo; "Responder" le escribe directo al cliente.
     sendEmail(env.CONTACT_EMAIL, owner.subject, owner.html, { replyTo: lead.email }),
+    sendLeadToGhl(lead),
   ]);
   const { html, buttons } = telegramMessage(lead, emailSent);
   const notified = await notifyTelegram(html, buttons);
